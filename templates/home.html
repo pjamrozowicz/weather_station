@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:http="http://www.w3.org/1999/xhtml">
+<head>
+{% load static %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/highcharts.js' %}"></script>
+<script src="{% static 'js/themes/dark-unica.js' %}"></script>
+
+
+</head>
+<body width="500" height="500">
+<!--{% block rootcontainer %}
+    <div id="container" style="width:100%; height:400px;"></div>
+{% endblock %}
+<h1 align="center">H1 Center</h1>-->
+
+
+    <div id={{ chartID1|safe }} class="chart" style="height:350px; width:1200px;position: relative;float:left"></div>
+    <div id={{ chartID3|safe }} class="chart" style="height:350px; width:1200px;position: relative;float:left"></div>
+    <div id={{ chartID2|safe }} class="chart" style="height:350px; width:1200px;position: relative;float:left"></div>
+
+
+{% block extrajs %}
+<!-- Highchart js. Variable map -->
+<script>
+
+$(document).ready(function() {
+    $({{ chartID1|safe }}).highcharts({
+        chart: {{ chart1|safe }},
+        title: {{ title1|safe }},
+        xAxis: {{ xAxis1|safe }},
+        yAxis: {{ yAxis1|safe }},
+        series: {{ series1|safe }}
+    });
+
+    $({{ chartID2|safe }}).highcharts({
+        chart: {{ chart2|safe }},
+        title: {{ title2|safe }},
+        xAxis: {{ xAxis2|safe }},
+        yAxis: {{ yAxis2|safe }},
+        series: {{ series2|safe }}
+    });
+
+    var series = {{ series3|safe }};
+
+    var obj = series[0]['data'];
+
+for(var x in obj){
+  if(typeof obj[x] === "string") obj[x] = JSON.parse(obj[x]);
+}
+series[0]['data'] = obj;
+    $({{ chartID3|safe }}).highcharts({
+        chart: {{ chart3|safe }},
+        title: {{ title3|safe }},
+        xAxis: {{ xAxis3|safe }},
+        yAxis: {{ yAxis3|safe }},
+        series: series
+    });
+});
+
+</script>
+
+{% endblock %}
+
+</body>
+</html>

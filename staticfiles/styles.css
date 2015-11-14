@@ -1,0 +1,44 @@
+body {
+    background: url(bg_img.jpg) no-repeat center center fixed;
+    margin: 0;
+    text-align: center;
+    padding: 0;
+}
+p {
+    font-size: 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+    opacity: 0.5;
+    margin-bottom: 25px;
+}
+.title {
+    opacity: 0.8;
+    padding: 0;
+    font-family: 'Lobster', cursive;
+    color: darkslategray;
+    text-shadow: 1px 1px 1px #D8D8D8;
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+
+.container {
+    opacity: 0.6;
+    width: 1000px;
+    height: 320px;
+    margin: 0px auto;
+}
+
+.chart_right {
+    width: 480px;
+    float: left;
+    margin: 0 10px;
+}
+
+.chart_left {
+    width: 480px;
+    float: right;
+    margin: 0 10px;
+}
+
+.chart_center {
+    width: auto;
+}

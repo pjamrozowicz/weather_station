@@ -76,15 +76,18 @@ def home(request):
 
 
 class Chartdata(object):
+    @staticmethod
     def load_last_hour():
         last_hour_data = {'temperature': [], 'measured': []}
-        values = Temperature.objects.raw('SELECT * FROM temperatures_temperature WHERE correctness = 1 ORDER BY id DESC LIMIT 6')
+        values = Temperature.objects.raw('SELECT * FROM temperatures_temperature '
+                                         'WHERE correctness = 1 ORDER BY id DESC LIMIT 6')
 
         for x in values:
             last_hour_data['temperature'].append(x.temperature)
             last_hour_data['measured'].append('%02d:%02d' % (x.measured.hour,x.measured.minute))
         return last_hour_data
 
+    @staticmethod
     def load_last_day():
         last_day_data = {'avg_temperature': [], 'date': []}
         values = Temperature.objects.raw('SELECT AVG(temperatures_temperature.temperature) AS "avg_temperature",'
@@ -105,6 +108,7 @@ class Chartdata(object):
 
         return last_day_data
 
+    @staticmethod
     def load_last_month():
         last_month_data = {'avg_temperature': [], 'date': []}
         values = Temperature.objects.raw('SELECT AVG(temperatures_temperature.temperature) as "avg_temperature", '
@@ -116,6 +120,7 @@ class Chartdata(object):
             last_month_data['date'].append(x.id)
         return last_month_data
 
+    @staticmethod
     def load_last_year():
         last_year_data = {'avg_temperature': [], 'month': []}
         list_of_months = {'01': 'January', '02': 'February', '03': 'March', '04': 'April', '05': 'May', '06': 'June',

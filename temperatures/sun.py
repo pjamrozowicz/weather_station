@@ -8,13 +8,17 @@ class Sun:
         self.sun = ephem.Sun()
 
     def last_rising(self):
-        return self.home.previous_rising(self.sun)
+        time = self.home.previous_rising(self.sun)
+        return ephem.localtime(time)
 
     def next_rising(self):
-        return self.home.next_rising(self.sun)
+        time = self.home.next_rising(self.sun)
+        return ephem.localtime(time)
 
     def last_sunset(self):
-        return self.home.previous_setting(self.sun)
+        time = self.home.previous_setting(self.sun)
+        return ephem.localtime(time)
 
     def next_sunset(self):
-        return self.home.next_setting(self.sun)
+        time = self.home.next_setting(self.sun)
+        return ephem.localtime(time)

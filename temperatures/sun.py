@@ -22,3 +22,9 @@ class Sun:
     def next_sunset(self):
         time = self.home.next_setting(self.sun)
         return ephem.localtime(time)
+
+    @staticmethod
+    def get_time_in_hours(time):
+        return time.hour + time.minute/60 + time.second/3600
+
+

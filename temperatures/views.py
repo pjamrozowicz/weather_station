@@ -28,16 +28,10 @@ def home(request):
 
     sun = Sun('50.05', '19.93')  # Coordinates for Cracow
 
-    sunrise = sun.last_rising()
-    sunset = sun.last_sunset()
-    sunrise = sunrise.hour + sunrise.minute/60 + sunrise.second/3600
-    sunset = sunset.hour + sunset.minute/60 + sunset.second/3600
+    sunrise = sun.get_time_in_hours(sun.last_rising())
+    sunset = sun.get_time_in_hours(sun.last_sunset())
 
-    start = time.strptime(last_day_data['date'][-1], "%H:%M")
-    start = start.tm_hour
-
-    end = time.strptime(last_day_data['date'][0], "%H:%M")
-    end = end.tm_hour
+    end = time.strptime(last_day_data['date'][0], "%H:%M").tm_hour
 
     sunrise_point = end - sunrise
     sunset_point = end - sunset
@@ -68,9 +62,7 @@ def home(request):
         ],
         "reversed": 'true'}
     yAxis3 = {"title": {"text": 'Temperature [C]'}}
-    series3 = [{
-        "name": 'Temperature [C]',
-        "data": last_day_data['avg_temperature']}]
+    series3 = [{"name": 'Temperature [C]', "data": last_day_data['avg_temperature']}]
 
     last_year_data = Chartdata.load_last_year()
 

@@ -8,6 +8,8 @@ __pycache__/
 
 #Secret files
 weather_station/settings_secret.py
+scripts/send_mail.py
+scripts/raspberry_script/temp.py
 
 # Distribution / packaging
 .Python

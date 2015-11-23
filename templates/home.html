@@ -16,7 +16,7 @@
     <p> Check the current temperature and register to our <b>Newsletter</b>. We will let you know whenever its cold! </p>
     <form method="POST" action="">
         {{ form }}
-        <input type="submit" value="Join newsletter">{% csrf_token %}
+        <input type="submit" value="Subscribe">{% csrf_token %}
     </form>
     <div class="container">
         <div id={{ chartID1|safe }} class="chart_left"></div>

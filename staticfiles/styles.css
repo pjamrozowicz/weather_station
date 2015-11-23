@@ -20,6 +20,51 @@ p {
     margin-bottom: 50px;
 }
 
+form {
+    font-family: 'Roboto Condensed', sans-serif;
+    margin: 10px auto;
+    margin-bottom: 25px;
+    padding: 0px;
+    width: 300px;
+}
+label {
+    opacity: 0.5;
+    float: left;
+    width: 50px;
+}
+
+input {
+    color: black;
+    opacity: 0.4;
+    display: block;
+    margin: 10px;
+    width: 170px;
+}
+
+input[type='submit'] {
+    color: white;
+    background-color: darkslateblue;
+    opacity: 1.0;
+    font-family: 'Roboto Condensed', sans-serif;
+    width: auto;
+    margin-left: 85px;
+    border-radius: 5px;
+    border-color: transparent;
+    padding: 5px 25px;
+}
+
+input[type='submit']:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+ul {
+    display: block;
+}
+li {
+    display: block;
+}
+
+
 .container {
     opacity: 0.6;
     width: 1000px;

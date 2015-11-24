@@ -1,4 +1,7 @@
 # LICENCE
+
+You can use all files written by us under MIT license. You should be aware that not all code belongs to us and you can only use it according to undermentioned licenses:
+
 ### Django
 Copyright (c) Django Software Foundation and individual contributors.
 All rights reserved.

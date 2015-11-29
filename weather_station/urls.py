@@ -20,6 +20,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     url(r'^$', 'temperatures.views.home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^availability/', 'temperatures.views.check_availability')
 ]
 
 urlpatterns += staticfiles_urlpatterns()

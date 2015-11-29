@@ -6,13 +6,13 @@ database = "/home/weather_station/db.sqlite3"
 fromaddr = 'weather.station.krk@gmail.com'
 
 MSG = "Welcome !\n" \
-      "Today average temperature was: %s" \
+      "Today average temperature was: %s\n" \
       "Maximum: %s\n" \
       "Minimum: %s\n"
 
 #SMTP Authentication
-username = 'weather.station.krk@gmail.com'
-password = 'weather123'
+username = 'your_username'
+password = 'your_password'
 
 #DATA SQL Queries
 queries = {

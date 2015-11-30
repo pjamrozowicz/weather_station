@@ -2,6 +2,7 @@ import paramiko
 import socket
 import datetime
 import sqlite3
+import smtplib
 
 """
 Configuration Options
@@ -16,9 +17,43 @@ LOCAL_DATABASE = 'PATH_TO_DB'
 """
 SSH Authentication
 """
-hostname = 'your_hostname'
-username = 'your_username'
+hostname = 'hostname'
+username = 'username'
+password = 'password'
+
+"""
+Email Authentication
+"""
+username = 'your_login'
 password = 'your_password'
+
+"""
+Server Messages
+"""
+
+TEMPERATUE_MEASURE_FAILURE = """Subject: TEMPERATURE MEASURE FAILURE
+Couldn't obtain the current temperature.
+Error Status:
+%s
+"""
+
+VPS_LOGIN_FAILURE = """Subject: VPS LOGIN FAILURE
+Couldn't connect to VPS
+Error Status:
+%s"""
+
+EXECUTE_COMMAND_FAILURE = """Subject: EXECUTE COMMAND FAILURE
+Couldn't execute Python command
+Error Status:
+%s"""
+
+
+def send_mail(msg):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(username,password)
+    server.sendmail(username, username, msg)
+    server.quit()
 
 
 def remote_saving_script(result):
@@ -29,9 +64,9 @@ def remote_saving_script(result):
         command = 'python save_data.py %s %s %s %s' % (result[0], result[1], result[2], result[3])
         ssh_client.exec_command(command)
     except (paramiko.BadHostKeyException, paramiko.AuthenticationException, paramiko.SSHException, socket.error) as e:
-        print("Sending an email to administration, cannot connect to VPS %s" % e)
+        send_mail(VPS_LOGIN_FAILURE % e)
     except paramiko.SSHException as e:
-        print("Sending an email to administration, cannot execute command %s" % e)
+        send_mail(EXECUTE_COMMAND_FAILURE % e)
 
 
 def local_saving_script(result):
@@ -45,10 +80,13 @@ def local_saving_script(result):
 
 
 def run_saving_script(result):
-    if REMOTE_CONNECTION:
-        remote_saving_script(result)
+    if not result[1]:
+        send_mail(TEMPERATUE_MEASURE_FAILURE % result[2])
     else:
-        local_saving_script(result)
+        if REMOTE_CONNECTION:
+            remote_saving_script(result)
+        else:
+            local_saving_script(result)
 
 
 def prepare_result(temperature):

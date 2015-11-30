@@ -4,7 +4,7 @@ body {
     text-align: center;
     padding: 0;
 }
-p {
+.information {
     font-size: 20px;
     font-family: 'Roboto Condensed', sans-serif;
     opacity: 0.5;
@@ -57,11 +57,12 @@ input[type='submit']:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-ul {
-    display: block;
+label {
+    font-size: 16px;
 }
-li {
-    display: block;
+
+form p {
+    margin: 0;
 }
 
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .forms import NewsletterForm
 from .temperature_data import *
 from .sun import *
@@ -6,6 +7,8 @@ import time
 
 # Create your views here.
 
+def check_availability(request):
+    return HttpResponse("STATUS: Available")
 
 def home(request):
     last_hour_data = Chartdata.load_last_hour()

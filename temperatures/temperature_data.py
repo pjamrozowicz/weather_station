@@ -7,12 +7,10 @@ class Chartdata(object):
     @staticmethod
     def load_last_hour():
         last_hour_data = {'temperature': [], 'measured': []}
-        values = Temperature.objects.raw('SELECT * FROM temperatures_temperature '
-                                         'WHERE correctness = 1 ORDER BY id DESC LIMIT 6')
-
+        values = Temperature.objects.filter(correctness=1).order_by('-id')[:6:1]
         for x in values:
             last_hour_data['temperature'].append(x.temperature)
-            last_hour_data['measured'].append('%02d:%02d' % (x.measured.hour,x.measured.minute))
+            last_hour_data['measured'].append('%02d:%02d' % (x.measured.hour, x.measured.minute))
         return last_hour_data
 
     @staticmethod
@@ -28,12 +26,10 @@ class Chartdata(object):
         if last_day_data['avg_temperature']:
             index_max, value_max = max(enumerate(last_day_data['avg_temperature']), key=operator.itemgetter(1))
             index_min, value_min = min(enumerate(last_day_data['avg_temperature']), key=operator.itemgetter(1))
-            last_day_data['avg_temperature'][index_max] = "{\"y\": %s, \"marker\":" \
-                                                   " {\"symbol\": \"url(%ssun.png)\"}" \
-                                                      "}" % (value_max, settings.STATIC_URL)
-            last_day_data['avg_temperature'][index_min] = "{\"y\": %s, \"marker\":" \
-                                                   " {\"symbol\": \"url(%ssnow.png)\"}" \
-                                                      "}" % (value_min, settings.STATIC_URL)
+            last_day_data['avg_temperature'][index_max] = "{\"y\": %s, \"marker\": {\"symbol\": \"url(%ssun.png)\"}}" \
+                                                          % (value_max, settings.STATIC_URL)
+            last_day_data['avg_temperature'][index_min] = "{\"y\": %s, \"marker\": {\"symbol\": \"url(%ssnow.png)\"}}" \
+                                                          % (value_min, settings.STATIC_URL)
 
         return last_day_data
 

@@ -25,12 +25,13 @@ class Chartdata(object):
         for x in values:
             last_day_data['avg_temperature'].append(round(x.avg_temperature,2))
             last_day_data['date'].append('%s:00' % x.id)
-        index_max, value_max = max(enumerate(last_day_data['avg_temperature']), key=operator.itemgetter(1))
-        index_min, value_min = min(enumerate(last_day_data['avg_temperature']), key=operator.itemgetter(1))
-        last_day_data['avg_temperature'][index_max] = "{\"y\": %s, \"marker\":" \
+        if last_day_data['avg_temperature']:
+            index_max, value_max = max(enumerate(last_day_data['avg_temperature']), key=operator.itemgetter(1))
+            index_min, value_min = min(enumerate(last_day_data['avg_temperature']), key=operator.itemgetter(1))
+            last_day_data['avg_temperature'][index_max] = "{\"y\": %s, \"marker\":" \
                                                    " {\"symbol\": \"url(%ssun.png)\"}" \
                                                       "}" % (value_max, settings.STATIC_URL)
-        last_day_data['avg_temperature'][index_min] = "{\"y\": %s, \"marker\":" \
+            last_day_data['avg_temperature'][index_min] = "{\"y\": %s, \"marker\":" \
                                                    " {\"symbol\": \"url(%ssnow.png)\"}" \
                                                       "}" % (value_min, settings.STATIC_URL)
 

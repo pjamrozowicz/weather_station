@@ -7,8 +7,10 @@ import time
 
 # Create your views here.
 
+
 def check_availability(request):
     return HttpResponse("STATUS: Available")
+
 
 def home(request):
     last_hour_data = Chartdata.load_last_hour()
@@ -28,30 +30,36 @@ def home(request):
     series2 = [{"name": 'Temperature [C]', "data": last_month_data['avg_temperature']}]
 
     last_day_data = Chartdata.load_last_day()
+    day_night_coloring = True if len(last_day_data['avg_temperature']) >= 24 else False
 
-    sun = Sun('50.05', '19.93')  # Coordinates for Cracow
+    if day_night_coloring:
+        sun = Sun('50.05', '19.93')  # Coordinates for Cracow
 
-    sunrise = sun.get_time_in_hours(sun.last_rising())
-    sunset = sun.get_time_in_hours(sun.last_sunset())
+        sunrise = sun.get_time_in_hours(sun.last_rising())
+        sunset = sun.get_time_in_hours(sun.last_sunset())
 
-    end = time.strptime(last_day_data['date'][0], "%H:%M").tm_hour
+        end = time.strptime(last_day_data['date'][0], "%H:%M").tm_hour
 
-    sunrise_point = end - sunrise
-    sunset_point = end - sunset
+        sunrise_point = end - sunrise
+        sunset_point = end - sunset
 
-    if sunrise_point <= 0:
-        sunrise_point += 24
-    if sunset_point <= 0:
-        sunset_point += 24
+        if sunrise_point <= 0:
+            sunrise_point += 24
+        if sunset_point <= 0:
+            sunset_point += 24
 
-    if sunrise_point > sunset_point:
-        list_of_from_points = [23, sunrise_point, sunset_point]  # night, day, night
-        list_of_to_points = [sunrise_point, sunset_point, 0]
-        list_of_colors = ['rgba(162, 162, 162, .2)', 'rgba(255, 255, 153, .2)', 'rgba(162, 162, 162, .2)']
+        if sunrise_point > sunset_point:
+            list_of_from_points = [23, sunrise_point, sunset_point]  # night, day, night
+            list_of_to_points = [sunrise_point, sunset_point, 0]
+            list_of_colors = ['rgba(162, 162, 162, .2)', 'rgba(255, 255, 153, .2)', 'rgba(162, 162, 162, .2)']
+        else:
+            list_of_from_points = [23, sunset_point, sunrise_point]  # day, night, day
+            list_of_to_points = [sunset_point, sunrise_point, 0]
+            list_of_colors = ['rgba(255, 255, 153, .2)', 'rgba(162, 162, 162, .2)', 'rgba(255, 255, 153, .2)']
     else:
-        list_of_from_points = [23, sunset_point, sunrise_point]  # day, night, day
-        list_of_to_points = [sunset_point, sunrise_point, 0]
-        list_of_colors = ['rgba(255, 255, 153, .2)', 'rgba(162, 162, 162, .2)', 'rgba(255, 255, 153, .2)']
+        list_of_from_points = [0]*3
+        list_of_to_points = [0]*3
+        list_of_colors = ['rgba(255, 255, 255, .0)']*3
 
     chart3 = {"renderTo": 'chart_3', "type": 'line', "height": 300}
     title3 = {"text": 'Last 24 Hours Temperature'}

@@ -12,38 +12,55 @@ Measure the temperature using your Raspberry device, it's really simple! All you
 You will need 2 machines to run this project:
 - [Raspberry Pi] Pre Installed Raspbery Pi with temperature sensor
 - [WebServer] VPS or machine with Ubuntu 15.04 OS ( You can try to run WebServer directly on your Raspberry device but this way is not supported by this tutorial )
+- Source files which you need to download: 
+
+## Prerequisities
+You will need to create an email that will be used to handle server exceptions and
+send emails to people registered for your newsletter.
+
+The easiest way is to create a brand new mail in Gmail and follow these instructions:
+http://docs.helpscout.net/article/120-smtp-settings to make your account available for some scripts.
+---
 
 ## Installation
 ### WebServer
-1. Make sure you have already installed clean Ubuntu 15.04 Server (Vivid Vervet)
-2. There is Python 3.4.3 installed by default 
-3. **Log in to root user**
-4. Change your timezone by typing in console: ```$ dpkg-reconfigure tzdata``` and check appropriate options
-5. Restart your system
-6. Install pip3 by typing in console ```$ sudo apt-get install python3-pip```
-7. Install all necessary dependencies: ```$ pip3 install -r web_requirements.txt```
-8. Place 'weather_station' folder in /home directory
-9. Go to /home/weather_station/weather_station
-10. Rename file **settings_secret.py.template** to **settings_secret.py**
-11. Go here: http://www.miniwebtool.com/django-secret-key-generator/
-12. Click "Generate Django Secret Key"
-13. Copy Generated Django Secret Key
-14. Open **settings_secret.py**
-15. Paste generated value instead **your-secret-key** (between ' ')
-16. Save **settings_secret.py**
-17. **Extract** 'scripts' folder content in /root directory
-18. Go to the /home/weather_station directory
-19. Type this in command line: ```$ python3 manage.py makemigrations temperatures```
-20. and ```$ python3 manage.py migrate```
-21. Now open crontab: ```$ crontab -e```
-22. Add this line at the end: **00 20 * * * python3 /root/send_mail.py**
-23. Save crontab and leave it
-24. You can now go to the /home/weather_station and run server: ```$ python3 manage.py runserver 0.0.0.0:80```
+If you would like to use ssh on Ubuntu 15.04 you need to login as root and type this in terminal: ```$ sudo apt-get install openssh-server ```
+Additionally, you can also login via SSH as a root user but you need to change this line in /etc/ssh/sshd_config:
+```PermitRootLogin without-password```
+to
+```PermitRootLogin yes```
+and restart the SSH server: ```$ sudo service ssh restart ```
+
+1. Make sure you have already installed Ubuntu 15.04 Server (Vivid Vervet)
+2. **Log in to root user**
+3. Download source mentioned above, all needed files will be in **web_server_vps** subfolder
+4. There is Python 3.4.3 installed by default 
+5. Change your timezone by typing in console: ```$ dpkg-reconfigure tzdata``` and check appropriate options
+6. Restart your system
+7. Place web_requirements.txt in, for example, **/root** location and go to this location
+8. Install pip3 by typing in console ```$ sudo apt-get install python3-pip```
+9. Install all necessary dependencies: ```$ pip3 install -r web_requirements.txt```
+10. Place 'weather_station' folder in /home directory
+11. Go to /home/weather_station/weather_station
+12. Rename file **settings_secret.py.template** to **settings_secret.py**
+13. Go here: http://www.miniwebtool.com/django-secret-key-generator/
+14. Click "Generate Django Secret Key"
+15. Copy Generated Django Secret Key
+16. Open **settings_secret.py**
+17. Paste generated value instead **your-secret-key** (between ' ')
+18. Save **settings_secret.py**
+19. **Extract** 'scripts' folder content in /root directory
+20. Go to the /home/weather_station directory
+21. Type this in command line: ```$ python3 manage.py makemigrations temperatures```
+22. and ```$ python3 manage.py migrate```
+23. Now open crontab: ```$ crontab -e```
+24. Add this line at the end: **00 20 * * * python3 /root/send_mail.py**
+25. Save crontab and leave it
+26. You can now go to the /home/weather_station and run server: ```$ python3 manage.py runserver 0.0.0.0:80```
 
 ### Raspberry Pi 
 1. Make sure that you have clean Raspbian OS installed
 2. Install Python 3.5
 3. Install all necessary dependencies: ```$ pip install rasp_requirements.txt```
-4. 
 
-This project was implemented by Przemys≥aw Jamrozowicz and Piotr Jatkowski as a Python classes assignment. The idea belongs to our teacher dr Leszek Grzanka.
+This project was implemented by Przemys≈Çaw Jamrozowicz and Piotr Jatkowski as a Python

@@ -20,6 +20,7 @@ send emails to people registered for your newsletter.
 
 The easiest way is to create a brand new mail in Gmail and follow these instructions:
 http://docs.helpscout.net/article/120-smtp-settings to make your account available for some scripts.
+
 ---
 
 ## Installation

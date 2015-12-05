@@ -24,7 +24,7 @@ http://docs.helpscout.net/article/120-smtp-settings to make your account availab
 ---
 
 ## Installation
-### WebServer
+### WebServer on VPS
 If you would like to use ssh on Ubuntu 15.04 you need to login as root and type this in terminal: ```$ sudo apt-get install openssh-server ```
 Additionally, you can also login via SSH as a root user but you need to change this line in /etc/ssh/sshd_config:
 ```PermitRootLogin without-password```

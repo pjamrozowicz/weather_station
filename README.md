@@ -12,7 +12,7 @@ Measure the temperature using your Raspberry device, it's really simple! All you
 You will need 2 machines to run this project:
 - [Raspberry Pi] Pre Installed Raspbery Pi with temperature sensor
 - [WebServer] VPS or machine with Ubuntu 15.04 OS ( You can try to run WebServer directly on your Raspberry device but this way is not supported by this tutorial )
-- Source files which you need to download: 
+- Source files which you need to download: https://github.com/bumbur/weather_station/archive/master.zip
 
 ## Prerequisities
 You will need to create an email that will be used to handle server exceptions and
@@ -33,7 +33,7 @@ and restart the SSH server: ```$ sudo service ssh restart ```
 
 1. Make sure you have already installed Ubuntu 15.04 Server (Vivid Vervet)
 2. **Log in to root user**
-3. Download source mentioned above, all needed files will be in **web_server_vps** subfolder
+3. Download source mentioned above
 4. There is Python 3.4.3 installed by default 
 5. Change your timezone by typing in console: ```$ dpkg-reconfigure tzdata``` and check appropriate options
 6. Restart your system
@@ -50,13 +50,16 @@ and restart the SSH server: ```$ sudo service ssh restart ```
 17. Paste generated value instead **your-secret-key** (between ' ')
 18. Save **settings_secret.py**
 19. **Extract** 'scripts' folder content in /root directory
-20. Go to the /home/weather_station directory
-21. Type this in command line: ```$ python3 manage.py makemigrations temperatures```
-22. and ```$ python3 manage.py migrate```
-23. Now open crontab: ```$ crontab -e```
-24. Add this line at the end: **00 20 * * * python3 /root/send_mail.py**
-25. Save crontab and leave it
-26. You can now go to the /home/weather_station and run server: ```$ python3 manage.py runserver 0.0.0.0:80```
+20. Open send_mail.py file
+21. In the SMTP section replace username and password with your gmail account username and password
+22. Change variable **fromaddr** to your gmail email, for example: 'weather123@gmail.com'
+23. Go to the /home/weather_station directory
+24. Type this in command line: ```$ python3 manage.py makemigrations temperatures```
+25. and ```$ python3 manage.py migrate```
+26. Now open crontab: ```$ crontab -e```
+27. Add this line at the end: **00 20 * * * python3 /root/send_mail.py**
+28. Save crontab and leave it
+29. You can now go to the /home/weather_station and run server: ```$ python3 manage.py runserver 0.0.0.0:80```
 
 ### Raspberry Pi 
 1. Make sure that you have clean Raspbian OS installed

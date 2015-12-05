@@ -7,12 +7,12 @@ import smtplib
 """
 Configuration Options
 """
-SENSOR_ID = '28-000006ca986b'
+SENSOR_ID = '28-0315543d39ff'
 SENSOR_FILE = '/sys/bus/w1/devices/' + SENSOR_ID + '/w1_slave'
 ERROR_MSG = 'ERROR'
 SUCCESS_MSG = 'SUCCESS'
-REMOTE_CONNECTION = True
-LOCAL_DATABASE = 'PATH_TO_DB'
+REMOTE_CONNECTION = False
+LOCAL_DATABASE = '/home/weather_station/db.sqlite3'
 
 """
 SSH Authentication
@@ -24,8 +24,8 @@ password = 'password'
 """
 Email Authentication
 """
-username = 'your_login'
-password = 'your_password'
+username = 'username'
+password = 'password'
 
 """
 Server Messages

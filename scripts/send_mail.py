@@ -3,16 +3,19 @@ import sqlite3
 import datetime
 
 database = "/home/weather_station/db.sqlite3"
-fromaddr = 'weather.station.krk@gmail.com'
+fromaddr = 'username@example.com'
 
-MSG = "Welcome !\n" \
-      "Today average temperature was: %s" \
-      "Maximum: %s\n" \
-      "Minimum: %s\n"
+MSG = """Subject: Daily Temperature Measures in Cracow
+Welcome !
+Today average temperature was: %.3f
+Maximum: %s
+Minimum: %s"""
+
 
 #SMTP Authentication
-username = 'your_username'
-password = 'your_password'
+username = 'username'
+password = 'password'
+
 
 #DATA SQL Queries
 queries = {
@@ -63,6 +66,7 @@ def get_receivers():
 def run():
     receivers = get_receivers()
     temperatures = get_all_temperatures()
-    send_mails(temperatures, receivers)
+    if len(receivers) > 0 and temperatures['avg_temp'] is not None:
+        send_mails(temperatures, receivers)
 
 run()

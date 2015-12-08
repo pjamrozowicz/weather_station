@@ -86,6 +86,7 @@ def home(request):
     form = NewsletterForm(request.POST or None)
     if form.is_valid():
         form.save()
+        form = NewsletterForm()
 
     chart = {
         'chartID1': 'chart_1',

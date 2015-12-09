@@ -131,4 +131,13 @@ and restart the SSH server: ```$ sudo service ssh restart ```
 28. Save crontab and leave it
 29. You can now go to the /home/weather_station and run server: ```$ python3 manage.py runserver 0.0.0.0:80```
 
-This project was implemented by Przemysław Jamrozowicz and Piotr Jatkowski as a Pytho class assignment.The idea belongs to our techer dr Leszek Grzanka.
+### Checking Availability
+If you would like to simultanously check web server's availability you can use script from checking_availability folder (check_availability.py). It depends on you, where you want to host this script. What's more important, is fact that you need to replace following variables in this script file(check_availability.py):
+* **address** variable should be set to your web server address, for example: 'http://example.net'
+* **username** and **password** variables should be set according to your gmail account created before. The script will use this email to send you notifications about failures.
+
+Now you can manually run this script whenever you want, add it to crontab (in the same way you've added other scripts in this tutorial). The choice is yours.
+
+---
+
+This project was implemented by Przemysław Jamrozowicz and Piotr Jatkowski as a Python class assignment.The idea belongs to our techer dr Leszek Grzanka.

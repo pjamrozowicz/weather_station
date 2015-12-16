@@ -43,7 +43,7 @@ $ sudo apt-get install python3
 $ sudo apt-get install python3-pip
 ```
 
-Go to home directory and run:
+Go to /home directory (cd /home) and run:
 ```sh
 $ sudo wget https://github.com/bumbur/weather_station/archive/master.zip
 $ sudo unzip master.zip

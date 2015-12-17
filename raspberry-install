@@ -1,0 +1,38 @@
+#!/bin/bash
+if [ "$1" == "local" ]; then
+        sudo modprobe w1-gpio
+		sudo modprobe w1-therm
+		sudo dpkg-reconfigure tzdata
+		sudo apt-get install python3
+		sudo apt-get install python3-pip
+		cd /home
+		sudo wget https://github.com/bumbur/weather_station/archive/master.zip
+		sudo unzip master.zip
+		cd weather_station-master
+		sudo pip3 install -r rasp_requirements.txt
+		sudo mv /scripts/get_data.py /home
+		sudo mv /scripts/send_mail.py /home
+		sudo mv /scripts/save_data.py /home
+		cd /home/weather_station-master/weather_station/weather_station
+		sudo mv settings_secret.py.template settings_secret.py
+		cd /home
+		sudo mv weather_station-master/weather_station/ /home/weather_station
+		cd /home/weather_station
+		sudo python3 manage.py makemigrations temperatures
+		sudo python3 manage.py migrate
+
+else
+		sudo modprobe w1-gpio
+		sudo modprobe w1-therm
+		sudo dpkg-reconfigure tzdata
+		sudo apt-get install python3
+		sudo apt-get install python3-pip
+		cd /home
+		sudo wget https://github.com/bumbur/weather_station/archive/master.zip
+		sudo unzip master.zip
+		cd weather_station-master
+		sudo pip3 install -r rasp_requirements.txt
+		sudo mv /scripts/get_data.py /home
+		sudo mv /scripts/send_mail.py /home
+		sudo mv /scripts/save_data.py /home  
+fi

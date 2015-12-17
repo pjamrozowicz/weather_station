@@ -25,52 +25,51 @@ The easiest way is to create a brand new Gmail account and follow these instruct
 
 ## Installation
 ### Raspberry
-This tutorial covers installation on Raspberry Model B Revision 2.0 with temperature sensor DS18B20. Firstly, connect temperature sensor to the Raspberry and then install Raspbian Jessie Lite on your Raspberry.
+This tutorial covers installation on Raspberry Model B Revision 2.0 with temperature sensor DS18B20. 
+Connect temperature sensor to the Raspberry: http://www.modmypi.com/blog/ds18b20-one-wire-digital-temperature-sensor-and-the-raspberry-pi
+Install Raspbian Jessie Lite on your Raspberry:
+	- download: https://www.raspberrypi.org/downloads/raspbian/
+	- installation: http://www.raspberry-projects.com/pi/pi-operating-systems/win32diskimager
 
-Connect to Raspberry and add the following line to /boot/config.txt: 
+Turn on your Raspberry and plug it in to the router with Ethernet cable.
+You have to find IP address of your Raspberry: https://www.raspberrypi.org/documentation/troubleshooting/hardware/networking/ip-address.md
+Open any SSH client, for example Putty (http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html), enter IP address of your raspberry and hit connect.
+Default login credentials are:
+login:pi
+password:raspberry
+
+After logging in add the following line to /boot/config.txt: 
 >dtoverlay=w1-gpio
 
 Reboot with:
 ```sh
-$ sudo reboot
-```
-Run commands:
-```sh
-$ sudo modprobe w1-gpio
-$ sudo modprobe w1-therm
-$ sudo dpkg-reconfigure tzdata
-$ sudo apt-get install python3
-$ sudo apt-get install python3-pip
+sudo reboot
 ```
 
-Go to /home directory (cd /home) and run:
+Download script named "raspberry-install" from this repository and save it on your raspberry with the same name (you can just copy-paste it).
+Make sure it has all the necessary rights (to be sure, you can run command: sudo chmod 777 raspberry-install).
+Run:
+- if you are not going to use VPS:
 ```sh
-$ sudo wget https://github.com/bumbur/weather_station/archive/master.zip
-$ sudo unzip master.zip
-$ cd weather_station-master
-$ sudo pip3 install -r rasp_requirements.txt
+sudo ./raspberry-install local
 ```
-Move all scripts from 'scripts' folder to /root directory (use root user if necessary).
+Go here: http://www.miniwebtool.com/django-secret-key-generator/, generate your key and paste it to settings_secret.py which is inside home\weather_station\weather_station directory.
 
-
-If you are planning to run your website on VPS server please skip these steps (until temp.py file part):
 ```sh
-$ cd /home/weather_station-master/weather_station/weather_station
-$ sudo mv settings_secret.py.template settings_secret.py
+		sudo screen
+		cd /home/weather_station
+		sudo python3 manage.py runserver 0.0.0.0:8000
+		sudo screen -d
 ```
-Go here: http://www.miniwebtool.com/django-secret-key-generator/, generate your key and paste it to settings_secret.py.
 
-Then run:
-```sh
-cd /home
-$ sudo mv weather_station-master/weather_station/ /home/weather_station
-$ cd /home/weather_station
-$ sudo python3 manage.py makemigrations temperatures
-$ sudo python3 manage.py migrate
-$ sudo python3 manage.py runserver 0.0.0.0:8000
-```
 Now you can access your website on any device in your local network by going to web browser and using IP address of your Raspberry followed by port number. It will look like this: 192.168.X.XX:8000.
-Stop the server for a while and continue with following steps (at the end run it again with the same command).
+
+- if you are going to use VPS:
+```sh
+sudo ./raspberry-install
+```
+
+Continue in any case:
 
 Open /home/weather_station-master/raspberry_scripts/temp.py file and enter your Gmail account credentials. You can also enter SSH authentication data for your VPS server if your are going to use one.
 Set variable REMOTE_CONNECTION:
@@ -88,9 +87,9 @@ Add following line:
 Script will save temperature info to the database every 10 minutes.
 
 Set up newsletter now. Open send_mail.py file from root directory. Change variable fromaddr to your Gmail address, for example: ‘weather123@gmail.com’, enter your username and password under SMTP section, save. Open crontab again and add the following line: 
-```00 20 * * * python3 /root/send_mail.py```
+```00 20 * * * python3 /home/send_mail.py```
 
-If you are not using VPS run your server again but in the background this time so it won't stop when you leave terminal.
+
 If you want to use VPS, please carry on with the instruction.
 
 ### WebServer on VPS
@@ -119,7 +118,7 @@ and restart the SSH server: ```$ sudo service ssh restart ```
 16. Open **settings_secret.py**
 17. Paste generated value instead **your-secret-key** (between ' ')
 18. Save **settings_secret.py**
-19. **Extract** 'scripts' folder content in /root directory
+19. **Extract** 'scripts' folder content in /home directory
 20. Open send_mail.py file
 21. In the SMTP section replace username and password with your gmail account username and password
 22. Change variable **fromaddr** to your gmail email, for example: 'weather123@gmail.com'
@@ -127,7 +126,7 @@ and restart the SSH server: ```$ sudo service ssh restart ```
 24. Type this in command line: ```$ python3 manage.py makemigrations temperatures```
 25. and ```$ python3 manage.py migrate```
 26. Now open crontab: ```$ crontab -e```
-27. Add this line at the end: **00 20 * * * python3 /root/send_mail.py**
+27. Add this line at the end: **00 20 * * * python3 /home/send_mail.py**
 28. Save crontab and leave it
 29. You can now go to the /home/weather_station and run server: ```$ python3 manage.py runserver 0.0.0.0:80```
 

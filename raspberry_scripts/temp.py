@@ -61,7 +61,7 @@ def remote_saving_script(result):
     ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     try:
         ssh_client.connect(hostname, username=username, password=password)
-        command = 'python save_data.py %s %s %s %s' % (result[0], result[1], result[2], result[3])
+        command = 'python /home/save_data.py %s %s %s %s' % (result[0], result[1], result[2], result[3])
         ssh_client.exec_command(command)
     except (paramiko.BadHostKeyException, paramiko.AuthenticationException, paramiko.SSHException, socket.error) as e:
         send_mail(VPS_LOGIN_FAILURE % e)

@@ -29,6 +29,7 @@ This tutorial covers installation on Raspberry Model B Revision 2.0 with tempera
 
 Connect temperature sensor to the Raspberry:
 http://www.modmypi.com/blog/ds18b20-one-wire-digital-temperature-sensor-and-the-raspberry-pi
+
 Install Raspbian Jessie Lite on your Raspberry:
 - download: https://www.raspberrypi.org/downloads/raspbian/
 - installation: http://www.raspberry-projects.com/pi/pi-operating-systems/win32diskimager
@@ -72,6 +73,7 @@ Now you can access your website on any device in your local network by going to 
 ```sh
 sudo ./raspberry-install
 ```
+
 
 Continue in any case:
 

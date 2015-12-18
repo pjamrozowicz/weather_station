@@ -25,18 +25,22 @@ The easiest way is to create a brand new Gmail account and follow these instruct
 
 ## Installation
 ### Raspberry
-This tutorial covers installation on Raspberry Model B Revision 2.0 with temperature sensor DS18B20. 
-Connect temperature sensor to the Raspberry: http://www.modmypi.com/blog/ds18b20-one-wire-digital-temperature-sensor-and-the-raspberry-pi
+This tutorial covers installation on Raspberry Model B Revision 2.0 with temperature sensor DS18B20.
+
+Connect temperature sensor to the Raspberry:
+http://www.modmypi.com/blog/ds18b20-one-wire-digital-temperature-sensor-and-the-raspberry-pi
 Install Raspbian Jessie Lite on your Raspberry:
-	- download: https://www.raspberrypi.org/downloads/raspbian/
-	- installation: http://www.raspberry-projects.com/pi/pi-operating-systems/win32diskimager
+- download: https://www.raspberrypi.org/downloads/raspbian/
+- installation: http://www.raspberry-projects.com/pi/pi-operating-systems/win32diskimager
 
 Turn on your Raspberry and plug it in to the router with Ethernet cable.
+
 You have to find IP address of your Raspberry: https://www.raspberrypi.org/documentation/troubleshooting/hardware/networking/ip-address.md
+
 Open any SSH client, for example Putty (http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html), enter IP address of your raspberry and hit connect.
 Default login credentials are:
-login:pi
-password:raspberry
+- login:pi
+- password:raspberry
 
 After logging in add the following line to /boot/config.txt: 
 >dtoverlay=w1-gpio

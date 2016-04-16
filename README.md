@@ -1,5 +1,5 @@
 # Weather Station
-
+![alt tag](https://raw.githubusercontent.com/bumbur/weather_station/master/project_image.JPG)
 ## Description
 Measure the temperature using your Raspberry device, it's really simple! All you need is a Raspberry, temperature sensor and our project.
 
